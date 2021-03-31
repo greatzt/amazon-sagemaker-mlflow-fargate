@@ -48,6 +48,7 @@ class DeploymentStack(core.Stack):
         # ==================================================
         # ==================== VPC =========================
         # ==================================================
+        
         public_subnet = ec2.SubnetConfiguration(name='Public', subnet_type=ec2.SubnetType.PUBLIC, cidr_mask=28)
         private_subnet = ec2.SubnetConfiguration(name='Private', subnet_type=ec2.SubnetType.PRIVATE, cidr_mask=28)
         isolated_subnet = ec2.SubnetConfiguration(name='DB', subnet_type=ec2.SubnetType.ISOLATED, cidr_mask=28)
@@ -61,6 +62,12 @@ class DeploymentStack(core.Stack):
             nat_gateways=1,
             subnet_configuration=[public_subnet, private_subnet, isolated_subnet]
         )
+        
+        
+        #import vpc from exiisting vpc
+        # vpcid = self.node.try_get_context("vpcid")
+        # vpc = ec2.Vpc.from_lookup(self, "VPC", vpc_id=vpcid)
+        
         vpc.add_gateway_endpoint('S3Endpoint', service=ec2.GatewayVpcEndpointAwsService.S3)
         # ==================================================
         # ================= S3 BUCKET ======================

@@ -130,3 +130,6 @@ dmypy.json
 deploy/
 test/
 **/.DS_Store
+
+#cdk related
+cdk.out
